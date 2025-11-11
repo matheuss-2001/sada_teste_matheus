@@ -52,6 +52,7 @@ class OccurrenceInfoPage extends StatelessWidget {
                 focusNode: store.plateFocusNode,
                 decoration: InputDecoration(
                   hintText: 'Placa',
+                  hintStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                   contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 ),
