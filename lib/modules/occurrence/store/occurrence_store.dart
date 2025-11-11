@@ -1,9 +1,10 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
+import 'package:sada_teste_matheus/modules/occurrence/data/models/occurrence_viewmodel.dart';
 
 part 'occurrence_store.g.dart';
 
@@ -25,6 +26,15 @@ abstract class _OccurrenceStore with Store {
   @observable
   File? imagePicked;
 
+  final OccurrenceViewmodel _occurrenceViewmodel = OccurrenceViewmodel(
+    plate: '',
+    photoBytes: Uint8List(0),
+    responsibleName: '',
+    responsibleSignBytes: Uint8List(0),
+    dateTimeRegisterOccurrence: DateTime.now(),
+    dateTimeRegisterSigned: DateTime.now(),
+  );
+
   void onTapBackPage() {
     Modular.to.pop();
   }
@@ -35,8 +45,16 @@ abstract class _OccurrenceStore with Store {
   }
 
   @action
-  void onTapForwardOccurrenceButton() {
-    Modular.to.pushNamed('/');
+  void onTapForwardOccurrenceButton() async {
+    await _populateOccurrenceModel();
+    Modular.to.pushNamed('sign_info_occurrence_page', arguments: {"occurrence_viewmodel": _occurrenceViewmodel});
+  }
+
+  Future<void> _populateOccurrenceModel() async {
+    String plateClean = plateController.text.replaceAll("-", "");
+    _occurrenceViewmodel.plate = plateClean;
+    _occurrenceViewmodel.dateTimeRegisterOccurrence = DateTime.now();
+    _occurrenceViewmodel.photoBytes = await _occurrenceViewmodel.fileToBytes(imagePicked!);
   }
 
   @action

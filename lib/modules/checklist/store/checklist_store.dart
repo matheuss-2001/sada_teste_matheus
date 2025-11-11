@@ -8,6 +8,6 @@ class ChecklistStore = _ChecklistStore with _$ChecklistStore;
 abstract class _ChecklistStore with Store {
   @action
   void startChecklist() {
-    Modular.to.pushNamed('/occurrence_info_page');
+    Modular.to.pushNamed('occurrence_info_page');
   }
 }
