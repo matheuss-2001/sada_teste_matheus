@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:sada_teste_matheus/helpers/sada_assets.dart';
-import 'package:sada_teste_matheus/helpers/sada_spaces.dart';
+import 'package:sada_teste_matheus/helpers/variables/sada_assets.dart';
+import 'package:sada_teste_matheus/helpers/variables/sada_spaces.dart';
 import '../store/checklist_store.dart';
 
 class ChecklistPage extends StatelessWidget {

@@ -22,6 +22,9 @@ dependencies:
   flutter_mobx: ^2.3.0
   build_runner: ^2.10.1
   mobx_codegen: ^2.7.4
+  modal_bottom_sheet: ^3.0.0
+  image_picker: ^1.1.2
+  brasil_fields: ^1.18.0
 
 dev_dependencies:
   flutter_test:
@@ -38,4 +41,6 @@ flutter:
 
   assets:
     - assets/icon_assets/checklist_assets/
+    - assets/icon_assets/occurrence_assets/
+    - assets/icon_assets/general_assets/
 
