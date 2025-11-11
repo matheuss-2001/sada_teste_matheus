@@ -25,6 +25,7 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   image_picker: ^1.1.2
   brasil_fields: ^1.18.0
+  signature: ^6.3.0
 
 dev_dependencies:
   flutter_test:

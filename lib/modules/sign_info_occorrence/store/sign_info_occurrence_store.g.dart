@@ -97,22 +97,46 @@ mixin _$SignInfoOccurrenceStore on _SignInfoOccurrenceStore, Store {
     );
   }
 
-  late final _$signFileAtom = Atom(
-    name: '_SignInfoOccurrenceStore.signFile',
+  late final _$signBytesAtom = Atom(
+    name: '_SignInfoOccurrenceStore.signBytes',
     context: context,
   );
 
   @override
-  File? get signFile {
-    _$signFileAtom.reportRead();
-    return super.signFile;
+  Uint8List get signBytes {
+    _$signBytesAtom.reportRead();
+    return super.signBytes;
   }
 
   @override
-  set signFile(File? value) {
-    _$signFileAtom.reportWrite(value, super.signFile, () {
-      super.signFile = value;
+  set signBytes(Uint8List value) {
+    _$signBytesAtom.reportWrite(value, super.signBytes, () {
+      super.signBytes = value;
     });
+  }
+
+  late final _$onTapSignOccurrenceAsyncAction = AsyncAction(
+    '_SignInfoOccurrenceStore.onTapSignOccurrence',
+    context: context,
+  );
+
+  @override
+  Future<void> onTapSignOccurrence() {
+    return _$onTapSignOccurrenceAsyncAction.run(
+      () => super.onTapSignOccurrence(),
+    );
+  }
+
+  late final _$onTapFinalizeOccurrenceButtonAsyncAction = AsyncAction(
+    '_SignInfoOccurrenceStore.onTapFinalizeOccurrenceButton',
+    context: context,
+  );
+
+  @override
+  Future<void> onTapFinalizeOccurrenceButton() {
+    return _$onTapFinalizeOccurrenceButtonAsyncAction.run(
+      () => super.onTapFinalizeOccurrenceButton(),
+    );
   }
 
   late final _$_SignInfoOccurrenceStoreActionController = ActionController(
@@ -145,25 +169,13 @@ mixin _$SignInfoOccurrenceStore on _SignInfoOccurrenceStore, Store {
   }
 
   @override
-  void onTapFinalizeOccurrenceButton() {
-    final _$actionInfo = _$_SignInfoOccurrenceStoreActionController.startAction(
-      name: '_SignInfoOccurrenceStore.onTapFinalizeOccurrenceButton',
-    );
-    try {
-      return super.onTapFinalizeOccurrenceButton();
-    } finally {
-      _$_SignInfoOccurrenceStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 responsibleController: ${responsibleController},
 isSignInfoOccurrenceFormValid: ${isSignInfoOccurrenceFormValid},
 signInfoOccurrenceFormKey: ${signInfoOccurrenceFormKey},
 responsibleFocusNode: ${responsibleFocusNode},
-signFile: ${signFile}
+signBytes: ${signBytes}
     ''';
   }
 }

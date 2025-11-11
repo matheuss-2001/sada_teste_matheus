@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -80,9 +80,9 @@ class SignInfoOccurrencePage extends StatelessWidget {
                     decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
                     child: Observer(
                       builder: (_) {
-                        final File? imageFile = store.signFile;
-                        if (imageFile != null) {
-                          return Image.file(imageFile, width: 128, height: 128, fit: BoxFit.cover);
+                        final Uint8List imageFile = store.signBytes;
+                        if (imageFile.isNotEmpty) {
+                          return Image.memory(store.signBytes, width: 128, height: 128, fit: BoxFit.fill);
                         } else {
                           return Padding(
                             padding: const EdgeInsets.all(8),

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +46,7 @@ abstract class _SignInfoOccurrenceStore with Store {
   FocusNode responsibleFocusNode = FocusNode();
 
   @observable
-  File? signFile;
+  Uint8List signBytes = Uint8List(0);
 
   void onTapBackPage() {
     Modular.to.pop();
@@ -55,7 +54,7 @@ abstract class _SignInfoOccurrenceStore with Store {
 
   @action
   void signInfoOccurrenceChangeForm() {
-    isSignInfoOccurrenceFormValid = signInfoOccurrenceFormKey.currentState!.validate() && signFile != null;
+    isSignInfoOccurrenceFormValid = signInfoOccurrenceFormKey.currentState!.validate() && signBytes.isNotEmpty;
   }
 
   @action
@@ -66,10 +65,13 @@ abstract class _SignInfoOccurrenceStore with Store {
   @action
   Future<void> onTapSignOccurrence() async {
     _unfocusResponsible();
+    final bytes = await Modular.to.pushNamed("sign_occurrence_page");
+    if (bytes != null) {
+      signBytes = bytes as Uint8List;
+      signInfoOccurrenceChangeForm();
+    }
   }
 
   @action
-  void onTapFinalizeOccurrenceButton() {
-    Modular.to.pushNamed('/');
-  }
+  Future<void> onTapFinalizeOccurrenceButton() async {}
 }
