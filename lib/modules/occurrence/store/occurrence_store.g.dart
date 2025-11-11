@@ -103,6 +103,18 @@ mixin _$OccurrenceStore on _OccurrenceStore, Store {
     });
   }
 
+  late final _$onTapForwardOccurrenceButtonAsyncAction = AsyncAction(
+    '_OccurrenceStore.onTapForwardOccurrenceButton',
+    context: context,
+  );
+
+  @override
+  Future<void> onTapForwardOccurrenceButton() {
+    return _$onTapForwardOccurrenceButtonAsyncAction.run(
+      () => super.onTapForwardOccurrenceButton(),
+    );
+  }
+
   late final _$openCameraAsyncAction = AsyncAction(
     '_OccurrenceStore.openCamera',
     context: context,
@@ -147,18 +159,6 @@ mixin _$OccurrenceStore on _OccurrenceStore, Store {
     );
     try {
       return super.occurrenceChangeForm();
-    } finally {
-      _$_OccurrenceStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void onTapForwardOccurrenceButton() {
-    final _$actionInfo = _$_OccurrenceStoreActionController.startAction(
-      name: '_OccurrenceStore.onTapForwardOccurrenceButton',
-    );
-    try {
-      return super.onTapForwardOccurrenceButton();
     } finally {
       _$_OccurrenceStoreActionController.endAction(_$actionInfo);
     }

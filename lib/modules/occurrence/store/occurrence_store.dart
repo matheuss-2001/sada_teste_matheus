@@ -45,7 +45,7 @@ abstract class _OccurrenceStore with Store {
   }
 
   @action
-  void onTapForwardOccurrenceButton() async {
+  Future<void> onTapForwardOccurrenceButton() async {
     await _populateOccurrenceModel();
     Modular.to.pushNamed('sign_info_occurrence_page', arguments: {"occurrence_viewmodel": _occurrenceViewmodel});
   }
