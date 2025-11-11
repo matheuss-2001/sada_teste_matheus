@@ -1,9 +1,10 @@
+import 'dart:io';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:sada_teste_matheus/helpers/sada_assets.dart';
-import 'package:sada_teste_matheus/helpers/sada_spaces.dart';
+import 'package:sada_teste_matheus/helpers/variables/sada_assets.dart';
+import 'package:sada_teste_matheus/helpers/variables/sada_spaces.dart';
 import 'package:sada_teste_matheus/modules/occurrence/store/occurrence_store.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -58,56 +59,105 @@ class OccurrenceInfoPage extends StatelessWidget {
                   if (plateValue == null || plateValue.isEmpty) {
                     return "Preencha Placa";
                   }
+                  if (plateValue.trim().length < 8) {
+                    return "Placa inválida";
+                  }
                   return null;
                 },
                 inputFormatters: [PlacaVeiculoInputFormatter()],
               ),
               SadaSpaces.big,
-              Observer(
-                builder: (_) => GestureDetector(
-                  onTap: () {
-                    _buildModalChooseTypeInputPhoto(context, store);
-                  },
-                  child: Card(
-                    elevation: 1,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                    child: Container(
-                      width: 128,
-                      height: 128,
-                      decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-                      child: store.imagePicked != null
-                          ? Image.file(store.imagePicked!, width: 128, height: 128, fit: BoxFit.cover)
-                          : Image.asset(SadaAssets.iconCameraOccurrence, width: 32, height: 32),
+              GestureDetector(
+                onTap: () {
+                  _buildModalChooseTypeInputPhoto(context, store);
+                },
+                child: Card(
+                  elevation: 1,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  child: Container(
+                    width: 128,
+                    height: 128,
+                    decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+                    child: Observer(
+                      builder: (_) {
+                        final File? imageFile = store.imagePicked;
+                        if (imageFile != null) {
+                          return Image.file(imageFile, width: 128, height: 128, fit: BoxFit.cover);
+                        } else {
+                          return Center(child: Image.asset(SadaAssets.iconCameraOccurrence, width: 32, height: 32));
+                        }
+                      },
                     ),
                   ),
                 ),
               ),
               const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                child: Observer(
-                  builder: (_) => ElevatedButton(
-                    onPressed: store.isOccurrenceFormValid ? store.onTapForwardOccurrenceButton : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0XFF006E63),
-                      padding: const EdgeInsets.all(8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              _buildExcludeImageButton(store),
+              _buildForwardButton(store),
+              SadaSpaces.medium,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Observer _buildExcludeImageButton(OccurrenceStore store) {
+    return Observer(
+      builder: (_) {
+        if (store.imagePicked != null) {
+          return Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  store.excludeCurrentPhoto();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0XFF006E63),
+                  padding: const EdgeInsets.all(8),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Apagar Foto',
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Avançar',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
-                        ),
-                        SadaSpaces.small,
-                        Image.asset(SadaAssets.iconArrowRightOccurrence, width: 32, height: 32),
-                      ],
-                    ),
-                  ),
+                    SadaSpaces.small,
+                    Icon(Icons.close_outlined, color: Colors.white),
+                  ],
                 ),
               ),
               SadaSpaces.medium,
+            ],
+          );
+        }
+        return Container();
+      },
+    );
+  }
+
+  SizedBox _buildForwardButton(OccurrenceStore store) {
+    return SizedBox(
+      width: double.infinity,
+      child: Observer(
+        builder: (_) => ElevatedButton(
+          onPressed: store.isOccurrenceFormValid ? store.onTapForwardOccurrenceButton : null,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0XFF006E63),
+            padding: const EdgeInsets.all(8),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Avançar',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+              ),
+              SadaSpaces.small,
+              Image.asset(SadaAssets.iconArrowRightOccurrence, width: 32, height: 32),
             ],
           ),
         ),
@@ -123,19 +173,21 @@ class OccurrenceInfoPage extends StatelessWidget {
         borderRadius: BorderRadius.only(topLeft: Radius.circular(14), topRight: Radius.circular(14)),
       ),
       context: context,
-      builder: (context) => Column(
+      builder: (modalContext) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            onTap: () {
-              store.openCamera();
+            onTap: () async {
+              await store.openCamera(modalContext);
+              Navigator.pop(modalContext);
             },
             leading: const Icon(Icons.camera_alt_outlined),
             title: const Text("Câmera"),
           ),
           ListTile(
-            onTap: () {
-              store.openGallery();
+            onTap: () async {
+              await store.openGallery(modalContext);
+              Navigator.pop(modalContext);
             },
             leading: const Icon(Icons.photo_camera_back_outlined),
             title: const Text("Galeria"),
