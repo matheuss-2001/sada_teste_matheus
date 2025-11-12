@@ -10,20 +10,8 @@ class SignOccurrenceStore = _SignOccurrenceStore with _$SignOccurrenceStore;
 
 abstract class _SignOccurrenceStore with Store {
   _SignOccurrenceStore() {
-    final ModularArguments args = Modular.args;
-    if (args.data != null && args.data is Uint8List) {
-      final data = args.data as Map<String, dynamic>;
-      if (data.containsKey("sign_bytes")) {
-        final receivedViewModel = data["occurrence_viewmodel"] as Uint8List;
-        responsibleSignBytes = receivedViewModel;
-        isOccurredSigned = true;
-      }
-    } else {
-      print("Argumentos não encontrados");
-    }
+    signController.addListener(_updateSignatureState);
   }
-
-  Uint8List responsibleSignBytes = Uint8List(0);
 
   final SignatureController signController = SignatureController(
     penStrokeWidth: 3,
@@ -32,16 +20,35 @@ abstract class _SignOccurrenceStore with Store {
   );
 
   @observable
-  bool isOccurredSigned = false;
+  bool _isDrawingPresent = false;
+
+  @computed
+  bool get canConfirmSignature => _isDrawingPresent;
 
   void onTapBackPage() {
+    _disposeListener();
     Modular.to.pop();
+  }
+
+  @action
+  void cleanSign() {
+    signController.clear();
+  }
+
+  void _disposeListener() {
+    signController.removeListener(_updateSignatureState);
+  }
+
+  @action
+  void _updateSignatureState() {
+    _isDrawingPresent = signController.isNotEmpty;
   }
 
   @action
   Future<void> onTapConfirmSignedOccurrence() async {
     final Uint8List? signatureBytes = await signController.toPngBytes();
     if (signatureBytes != null) {
+      _disposeListener();
       Modular.to.pop(signatureBytes);
     }
   }

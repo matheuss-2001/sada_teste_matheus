@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:intl/intl.dart';
+
 class OccurrenceViewmodel {
   String plate;
   Uint8List photoBytes;
@@ -61,6 +63,15 @@ class OccurrenceViewmodel {
       return await file.readAsBytes();
     } catch (e) {
       return Uint8List(0);
+    }
+  }
+
+  String getDateBrFormat(DateTime dateTime) {
+    try {
+      final DateFormat dateFormat = DateFormat('dd/MM/yyyy HH:mm');
+      return dateFormat.format(dateTime);
+    } catch (e) {
+      return "";
     }
   }
 }
