@@ -123,7 +123,7 @@ class SignInfoOccurrencePage extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
               ),
               SadaSpaces.small,
-              Image.asset(SadaAssets.iconArrowRightOccurrence, width: 32, height: 32),
+              Image.asset(SadaAssets.iconConfirmOccurrence, width: 32, height: 32),
             ],
           ),
         ),

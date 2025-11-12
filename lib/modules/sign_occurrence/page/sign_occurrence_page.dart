@@ -37,13 +37,18 @@ class SignOccurrencePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                const Text(
-                  'Limpar',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0XFF515458)),
-                ),
-              ],
+            GestureDetector(
+              onTap: store.cleanSign,
+              child: Row(
+                children: [
+                  Image.asset(SadaAssets.iconCleanSign, width: 32, height: 32),
+                  SadaSpaces.small,
+                  const Text(
+                    'Limpar',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0XFF515458)),
+                  ),
+                ],
+              ),
             ),
             SadaSpaces.medium,
             Expanded(
@@ -63,7 +68,7 @@ class SignOccurrencePage extends StatelessWidget {
       width: double.infinity,
       child: Observer(
         builder: (_) => ElevatedButton(
-          onPressed: !store.isOccurredSigned ? store.onTapConfirmSignedOccurrence : null,
+          onPressed: store.canConfirmSignature ? store.onTapConfirmSignedOccurrence : null,
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0XFF006E63),
             padding: const EdgeInsets.all(8),
@@ -77,7 +82,7 @@ class SignOccurrencePage extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
               ),
               SadaSpaces.small,
-              Image.asset(SadaAssets.iconArrowRightOccurrence, width: 32, height: 32),
+              Image.asset(SadaAssets.iconConfirmSign, width: 32, height: 32),
             ],
           ),
         ),

@@ -127,18 +127,6 @@ mixin _$SignInfoOccurrenceStore on _SignInfoOccurrenceStore, Store {
     );
   }
 
-  late final _$onTapFinalizeOccurrenceButtonAsyncAction = AsyncAction(
-    '_SignInfoOccurrenceStore.onTapFinalizeOccurrenceButton',
-    context: context,
-  );
-
-  @override
-  Future<void> onTapFinalizeOccurrenceButton() {
-    return _$onTapFinalizeOccurrenceButtonAsyncAction.run(
-      () => super.onTapFinalizeOccurrenceButton(),
-    );
-  }
-
   late final _$_SignInfoOccurrenceStoreActionController = ActionController(
     name: '_SignInfoOccurrenceStore',
     context: context,
@@ -163,6 +151,18 @@ mixin _$SignInfoOccurrenceStore on _SignInfoOccurrenceStore, Store {
     );
     try {
       return super._unfocusResponsible();
+    } finally {
+      _$_SignInfoOccurrenceStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void onTapFinalizeOccurrenceButton() {
+    final _$actionInfo = _$_SignInfoOccurrenceStoreActionController.startAction(
+      name: '_SignInfoOccurrenceStore.onTapFinalizeOccurrenceButton',
+    );
+    try {
+      return super.onTapFinalizeOccurrenceButton();
     } finally {
       _$_SignInfoOccurrenceStoreActionController.endAction(_$actionInfo);
     }

@@ -73,5 +73,14 @@ abstract class _SignInfoOccurrenceStore with Store {
   }
 
   @action
-  Future<void> onTapFinalizeOccurrenceButton() async {}
+  void onTapFinalizeOccurrenceButton() {
+    _populateOccurrenceModel();
+    Modular.to.pushNamed('success_occurrence_store', arguments: {"occurrence_viewmodel": _occurrenceViewmodel});
+  }
+
+  void _populateOccurrenceModel() {
+    _occurrenceViewmodel.responsibleName = responsibleController.text;
+    _occurrenceViewmodel.dateTimeRegisterSigned = DateTime.now();
+    _occurrenceViewmodel.responsibleSignBytes = signBytes;
+  }
 }
