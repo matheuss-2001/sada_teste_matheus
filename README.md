@@ -1,14 +1,26 @@
-# sada_teste_matheus
-Fluxo estrutura inicial 
-Fluxo de checklist
-Fluxo de ocorrencia 
-Fluxo info do assitante 
-Fluxo de assinatura 
+# Cadastro de ocorrencia - MObx
+
+- Fluxo estrutura inicial 
+- Fluxo de checklist
+- Fluxo de ocorrencia 
+- Fluxo info do assitante 
+- Fluxo de assinatura 
+- Fluxo de sucesso 
+- Fluxo Persistencia SQlite 
+- Fluxo de listagem da persisencia 
+- Fluxo detalhe da Persistencia.
+
+<img width="320" height="659" alt="Screenshot 2025-11-11 at 23 25 28" src="https://github.com/user-attachments/assets/f540ee88-a107-4305-8181-9b4700704dfb" />
+<img width="317" height="667" alt="Screenshot 2025-11-11 at 23 26 07" src="https://github.com/user-attachments/assets/a06b32a7-cb1c-4002-a6a3-ea96f92fbec1" />
+<img width="309" height="655" alt="Screenshot 2025-11-11 at 23 26 44" src="https://github.com/user-attachments/assets/b9b9b6aa-0d73-41b1-ba54-5a3236dce6a3" />
+<img width="318" height="653" alt="Screenshot 2025-11-11 at 23 27 13" src="https://github.com/user-attachments/assets/d4792b19-d582-4809-a1de-a9c5f5fb9d4d" />
+<img width="317" height="653" alt="Screenshot 2025-11-11 at 23 27 22" src="https://github.com/user-attachments/assets/021e8753-6879-4112-9179-5c6a058d61a7" />
+<img width="348" height="674" alt="Screenshot 2025-11-11 at 23 27 29" src="https://github.com/user-attachments/assets/4cf9626d-c055-4508-b096-34bf687a9d71" />
 
 
 
-<img width="330" height="674" alt="Screenshot 2025-11-11 at 12 10 23" src="https://github.com/user-attachments/assets/90e29fa8-dcbb-4a76-8e33-4826881118c1" />
-<img width="332" height="693" alt="Screenshot 2025-11-11 at 15 40 05" src="https://github.com/user-attachments/assets/7f59164e-6bd5-4241-b41e-6e352bf6325b" />
-<img width="341" height="705" alt="Screenshot 2025-11-11 at 15 44 35" src="https://github.com/user-attachments/assets/e9665937-2a52-44df-a0ba-c4b472b74962" />
-<img width="363" height="670" alt="Screenshot 2025-11-11 at 15 50 23" src="https://github.com/user-attachments/assets/e3f3ea32-57d2-488d-8258-7590d1f73f9d" />
+
+
+
+
 
