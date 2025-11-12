@@ -9,7 +9,11 @@ class ChecklistPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: _buildAppBar(), body: _buildBody());
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: _buildBody(),
+      floatingActionButton: _buildFloatingActionButton(context),
+    );
   }
 
   AppBar _buildAppBar() {
@@ -46,7 +50,7 @@ class ChecklistPage extends StatelessWidget {
                     SadaSpaces.medium,
                     const Expanded(
                       child: Text(
-                        'Ocorrência',
+                        'Cadastrar Ocorrência',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Color(0XFF515458)),
                       ),
                     ),
@@ -58,6 +62,18 @@ class ChecklistPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  FloatingActionButton _buildFloatingActionButton(BuildContext context) {
+    return FloatingActionButton.extended(
+      onPressed: () {
+        Modular.to.pushNamed('user_occurrence_page');
+      },
+      icon: const Icon(Icons.save_alt_outlined, color: Colors.white),
+      label: const Text('Minhas Ocorrências', style: TextStyle(color: Colors.white)),
+      backgroundColor: Color(0XFF006E63),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     );
   }
 }

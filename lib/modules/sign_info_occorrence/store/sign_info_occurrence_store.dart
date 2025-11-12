@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:sada_teste_matheus/database/occurrence_db.dart';
 import 'package:sada_teste_matheus/modules/occurrence/data/models/occurrence_viewmodel.dart';
 
 part 'sign_info_occurrence_store.g.dart';
@@ -75,12 +76,17 @@ abstract class _SignInfoOccurrenceStore with Store {
   @action
   void onTapFinalizeOccurrenceButton() {
     _populateOccurrenceModel();
-    Modular.to.pushNamed('success_occurrence_store', arguments: {"occurrence_viewmodel": _occurrenceViewmodel});
+    _saveDataOfflineSqlite();
   }
 
   void _populateOccurrenceModel() {
     _occurrenceViewmodel.responsibleName = responsibleController.text;
     _occurrenceViewmodel.dateTimeRegisterSigned = DateTime.now();
     _occurrenceViewmodel.responsibleSignBytes = signBytes;
+  }
+
+  Future<void> _saveDataOfflineSqlite() async {
+    await OccurrenceDatabase.saveOccurrenceOffline(_occurrenceViewmodel);
+    Modular.to.pushNamed('success_occurrence_store', arguments: {"occurrence_viewmodel": _occurrenceViewmodel});
   }
 }

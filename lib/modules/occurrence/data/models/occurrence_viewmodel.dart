@@ -23,7 +23,7 @@ class OccurrenceViewmodel {
   factory OccurrenceViewmodel.fromJson(Map<String, dynamic> json) {
     return OccurrenceViewmodel(
       plate: json['plate'] ?? '',
-      photoBytes: json['photoBytes'] != null ? Uint8List.fromList(List<int>.from(json['photoBytes'])) : Uint8List(0),
+      photoBytes: json['photo_bytes'] != null ? Uint8List.fromList(List<int>.from(json['photo_bytes'])) : Uint8List(0),
       responsibleName: json['responsible_name'] ?? '',
       responsibleSignBytes: json['responsible_sign_bytes'] != null
           ? Uint8List.fromList(List<int>.from(json['responsible_sign_bytes']))
@@ -40,11 +40,11 @@ class OccurrenceViewmodel {
   Map<String, dynamic> toJsonSaveData() {
     return {
       'plate': plate,
-      'photoBytes': photoBytes,
-      'responsibleName': responsibleName,
-      'responsibleSignBytes': responsibleSignBytes,
-      'dateTimeCreated': dateTimeRegisterOccurrence.toIso8601String(),
-      'datetime_register_signed': dateTimeRegisterSigned.toIso8601String(),
+      'photo_bytes': photoBytes,
+      'responsible_name': responsibleName,
+      'responsible_sign_bytes': responsibleSignBytes,
+      'datetime_register_occurrence': dateTimeRegisterOccurrence.toString(),
+      'datetime_register_signed': dateTimeRegisterSigned.toString(),
     };
   }
 

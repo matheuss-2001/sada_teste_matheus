@@ -84,7 +84,7 @@ class SuccessOccurrencePage extends StatelessWidget {
 
   Widget _buildRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
